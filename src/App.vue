@@ -1,26 +1,33 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <v-main-wrapper />
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import VMainWrapper from "@/components/v-main-wrapper.vue";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    VMainWrapper
+  },
+
 }
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600&family=Raleway:wght@100;200;300;400;500;600;800&display=swap');
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  /*font-family: 'Raleway', sans-serif;*/
+  font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
+}
+body {
+  margin: 0;
+  list-style: none;
+  min-height: 100vh;
+  background: #f5f8fa;
 }
 </style>
