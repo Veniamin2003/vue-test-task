@@ -1,34 +1,41 @@
 <template>
   <div class="v-main-wrapper">
-    <v-diagram-container />
+    <v-diagram-container
+        :row_data="USERS" />
     <v-users-table />
   </div>
 </template>
 <script>
 
-import {mapActions, mapGetters} from "vuex";
+import {mapActions, mapGetters, mapState} from "vuex";
 import VDiagramContainer from "@/components/diagram/v-diagram-container.vue";
 import VUsersTable from "@/components/content/v-users-table.vue";
 
 export default {
   name: 'v-main-wrapper',
-  components: {VUsersTable, VDiagramContainer},
+  components: { VUsersTable, VDiagramContainer},
   data() {
     return {}
   },
   methods: {
     ...mapActions({
-      GET_USERS: "users/GET_USERS"
+      GET_USERS: "users/GET_USERS",
+      GET_FILTERS: "users/GET_FILTERS"
     })
   },
   computed: {
     ...mapGetters({
-      USERS: "users/USERS"
+      USERS: "users/USERS",
+      COUNT_MEN: "users/COUNT_MEN"
+    }),
+    ...mapState({
+      users: state => state.users.users,
     })
   },
 
   mounted() {
     this.GET_USERS();
+    this.GET_FILTERS();
   },
 }
 </script>

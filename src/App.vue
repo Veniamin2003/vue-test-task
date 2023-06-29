@@ -15,7 +15,7 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600&family=Raleway:wght@100;200;300;400;500;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600&family=Raleway:wght@100;200;300;400;500;600;800&display=swap');
 #app {
   /*font-family: 'Raleway', sans-serif;*/
   font-family: 'Montserrat', sans-serif;
