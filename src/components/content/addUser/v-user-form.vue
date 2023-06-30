@@ -120,59 +120,77 @@ export default {
   },
   methods: {
     createUser() {
-      this.user.id = Date.now();
-      this.user.params.gender.value = this.selectedGender;
-      this.user.params.work_position.value = this.selectedWorkPosition;
-      this.user.params.department.value = this.selectedDepartment;
-      this.user.params.company_name.value = this.selectedCompany;
-      this.user.params.company_locate.value = this.selectedLocation;
-      this.user.params.team_name.value = this.selectedTeam;
-      this.user.params.employment.value = this.selectedEmployment;
+      if (this.isFieldsFill()) {
+        this.user.id = Date.now();
+        this.user.params.gender.value = this.selectedGender;
+        this.user.params.work_position.value = this.selectedWorkPosition;
+        this.user.params.department.value = this.selectedDepartment;
+        this.user.params.company_name.value = this.selectedCompany;
+        this.user.params.company_locate.value = this.selectedLocation;
+        this.user.params.team_name.value = this.selectedTeam;
+        this.user.params.employment.value = this.selectedEmployment;
 
-      this.$emit('create', this.user)
-      this.user = {
-        name: "",
-        image: "fact.png",
-        params: {
-          gender: {
-            label: "Пол",
-            value: "",
-            isVisible: true
-          },
-          work_position: {
-            label: "Должность",
-            value: "",
-            isVisible: true
-          },
-          department: {
-            label: "Отдел",
-            value: "",
-            isVisible: true
-          },
-          company_name: {
-            label: "Компания",
-            value: "",
-            isVisible: true
-          },
-          company_locate: {
-            label: "Локация",
-            value: "",
-            isVisible: true
-          },
-          team_name: {
-            label: "Команда",
-            value: "",
-            isVisible: false
-          },
-          employment: {
-            label: "Вид занятости",
-            value: "",
-            isVisible: false
+        this.$emit('create', this.user)
+        this.user = {
+          name: "",
+          image: "fact.png",
+          params: {
+            gender: {
+              label: "Пол",
+              value: "",
+              isVisible: true
+            },
+            work_position: {
+              label: "Должность",
+              value: "",
+              isVisible: true
+            },
+            department: {
+              label: "Отдел",
+              value: "",
+              isVisible: true
+            },
+            company_name: {
+              label: "Компания",
+              value: "",
+              isVisible: true
+            },
+            company_locate: {
+              label: "Локация",
+              value: "",
+              isVisible: true
+            },
+            team_name: {
+              label: "Команда",
+              value: "",
+              isVisible: false
+            },
+            employment: {
+              label: "Вид занятости",
+              value: "",
+              isVisible: false
+            }
           }
         }
+
+        this.CLEAR_SELECTED_PARAMS();
+      }
+      else{
+        alert("Не все поля заполнены")
       }
 
-      this.CLEAR_SELECTED_PARAMS();
+
+    },
+
+    isFieldsFill() {
+      return this.user.name !== ""
+          && this.selectedGender !== ""
+          && this.selectedWorkPosition !== ""
+          && this.selectedDepartment !== ""
+          && this.selectedCompany !== ""
+          && this.selectedLocation !== ""
+          && this.selectedTeam !== ""
+          && this.selectedEmployment !== "";
     },
     ...mapMutations({
       SET_SELECTED_GENDER: "users/SET_SELECTED_GENDER",
@@ -205,6 +223,9 @@ export default {
       EMPLOYMENT: "users/EMPLOYMENT",
     })
 
+  },
+  unmounted() {
+    this.CLEAR_SELECTED_PARAMS();
   }
 }
 </script>

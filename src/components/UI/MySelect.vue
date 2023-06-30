@@ -33,9 +33,17 @@ export default {
 </script>
 
 <style scoped>
+option {
+  margin-right: 15px;
+}
 .v-my-select {
-  margin-top: 5px;
+  font-size: 14px;
+  color: rgba(94, 91, 91, 0.67);
+  border-radius: 7px;
+  margin-top: 10px;
   width: 100%;
-  height: 40px;
+  height: 50px;
+  padding-left: 20px;
+  padding-right: 15px;
 }
 </style>

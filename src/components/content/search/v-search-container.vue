@@ -4,12 +4,17 @@
           <v-my-input :model-value="this.searchQuery"
                       @update:model-value="SET_SEARCH_QUERY"/>
 
-        <button class="v-search-container__btn">
+        <button @click="showDialog"
+                class="v-search-container__btn">
           <span class="material-symbols-outlined">
           filter_alt
           </span>
           Фильтр
         </button>
+
+        <v-filter-container v-model:show="dialogVisible">
+          <v-filter-form/>
+        </v-filter-container>
       </div>
   </div>
 </template>
@@ -17,15 +22,22 @@
 <script>
 import VMyInput from "@/components/content/search/v-my-input.vue";
 import {mapMutations, mapState} from "vuex";
+import VFilterContainer from "@/components/filters/v-filter-container.vue";
+import VFilterForm from "@/components/filters/v-filter-form.vue";
 
 export default {
   name: 'v-search-container',
-  components: { VMyInput},
+
+  components: {VFilterForm, VFilterContainer, VMyInput},
   data() {
     return {
+      dialogVisible: false,
     }
   },
   methods: {
+    showDialog() {
+      this.dialogVisible = true;
+    },
     ...mapMutations({
       SET_SEARCH_QUERY: "users/SET_SEARCH_QUERY"
     })

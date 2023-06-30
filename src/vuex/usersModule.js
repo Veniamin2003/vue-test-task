@@ -6,6 +6,7 @@ export const usersModule = {
         filters: [],
         visible_params: [],
         isPostsLoading: false,
+        isData: true,
 
         selectedGender: '',
         selectedWorkPosition: '',
@@ -53,11 +54,13 @@ export const usersModule = {
                     }
                 });
                 commit('SET_TOTAL_PAGES', Math.ceil(response.headers['x-total-count'] / state.limit));
-                commit('SET_FILTERS', response.data)
+                commit('SET_FILTERS', response.data);
+                commit("SET_IS_DATA", true);
             } catch (e) {
                 alert("Ошибка");
             } finally {
                 commit("SET_LOADING", false);
+                commit("SET_IS_DATA", true);
             }
         },
     },
@@ -70,6 +73,9 @@ export const usersModule = {
         },
         SET_LOADING(state, bool) {
             state.isPostsLoading = bool;
+        },
+        SET_IS_DATA(state, bool) {
+            state.isData = bool;
         },
         SET_TOTAL_PAGES(state, totalPages) {
             state.totalPage = totalPages;
@@ -114,9 +120,14 @@ export const usersModule = {
         USERS(state){
             return state.users;
         },
-
+        IS_DATA(state) {
+          return state.isData
+        },
         FILTERS(state){
             return state.filters;
+        },
+        POST_LOADING(state){
+            return state.isPostsLoading;
         },
 
         PARAMS(state) {
