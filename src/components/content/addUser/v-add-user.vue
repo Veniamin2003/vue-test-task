@@ -12,7 +12,7 @@
 <script>
 import VAddUserDialog from "@/components/content/addUser/v-add-user-dialog.vue";
 import VUserForm from "@/components/content/addUser/v-user-form.vue";
-import {mapState} from "vuex";
+import {mapMutations, mapState} from "vuex";
 
 export default {
   name: 'v-add-user',
@@ -25,15 +25,22 @@ export default {
   methods: {
     showDialog() {
       this.dialogVisible = true;
+      this.CLEAR_SELECTED_PARAMS();
     },
     createUser(user) {
       this.users.push(user);
       this.dialogVisible = false;
+      this.ADD_USER_IN_USERS();//тут что-то не то, пользователь участвует в фильтрации но тупо
     },
+    ...mapMutations({
+      CLEAR_SELECTED_PARAMS: "users/CLEAR_SELECTED_PARAMS",
+      ADD_USER_IN_USERS: "users/ADD_USER_IN_USERS"
+    })
   },
   computed: {
     ...mapState({
       users: state => state.users.users,
+      usersBackup: state => state.users.usersBackup,
       testUsers: state => state.users.testUsers
     })
   }

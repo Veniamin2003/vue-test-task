@@ -65,8 +65,6 @@ export default {
     }),
   },
   mounted(){
-    // eslint-disable-next-line no-debugger
-    debugger
     setTimeout(this.changeIsData, 300)
   }
 }

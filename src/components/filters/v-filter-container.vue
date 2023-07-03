@@ -16,6 +16,7 @@ export default {
 
 <style lang="scss" scoped>
 .v-filter-container {
+  z-index: 2;
   top: 0;
   bottom: 0;
   right: 0;

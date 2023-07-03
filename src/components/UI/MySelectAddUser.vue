@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: 'v-my-select',
+  name: 'v-my-select-add-user',
   props: {
     modelValue: {
       type: String
@@ -23,17 +23,10 @@ export default {
       type: Object,
       default: () => {}
     },
-    filterType: {
-      type: String,
-      default: ""
-    }
   },
   methods: {
     changeOptions(event) {
-      this.$emit('update:modelValue', {
-        value: event.target.value,
-        type: this.filterType
-      });
+      this.$emit('update:modelValue', event.target.value);
     }
   },
 }

@@ -3,6 +3,7 @@ import axios from "axios";
 export const usersModule = {
     state: {
         users: [],
+        usersBackup: [],
         filters: [],
         visible_params: [],
         isPostsLoading: false,
@@ -43,6 +44,7 @@ export const usersModule = {
                 alert("Ошибка");
             } finally {
                 commit("SET_LOADING", false);
+                commit("WWW");
             }
         },
         async GET_FILTERS({state, commit}) {
@@ -56,6 +58,7 @@ export const usersModule = {
                 commit('SET_TOTAL_PAGES', Math.ceil(response.headers['x-total-count'] / state.limit));
                 commit('SET_FILTERS', response.data);
                 commit("SET_IS_DATA", true);
+
             } catch (e) {
                 alert("Ошибка");
             } finally {
@@ -63,8 +66,20 @@ export const usersModule = {
                 commit("SET_IS_DATA", true);
             }
         },
+        TEST({commit}, value, genderParam  ) {
+            // eslint-disable-next-line no-debugger
+            debugger
+
+            console.log(genderParam)
+            commit("SET_SELECTED_GENDER", value);
+            commit("FILTERED_USERS");
+        }
+
     },
     mutations: {
+        WWW(state) {
+            state.usersBackup = [...state.users];
+        },
         SET_USERS(state, users) {
             state.users = users;
         },
@@ -115,6 +130,108 @@ export const usersModule = {
         SET_SEARCH_QUERY(state, searchQuery) {
             state.searchQuery = searchQuery;
         },
+
+        SORT_GENDERS(state, selectedGender) {
+            state.selectedGender = selectedGender;
+
+            //state.users = [...state.usersBackup];
+
+            let sortedUsers = state.users.filter(function (el) {
+                return el.params.gender.value === selectedGender;
+            });
+
+            return state.users = sortedUsers;
+        },
+        SORT_WORK_POSITION(state, selectedWorkPosition) {
+            state.selectedWorkPosition = selectedWorkPosition;
+            //state.users = [...state.usersBackup];
+            let sortedUsers = state.users.filter(function (el) {
+                return el.params.work_position.value === selectedWorkPosition;
+            });
+
+            return state.users = sortedUsers;
+        },
+        SORT_DEPARTMENT(state, selectedDepartment) {
+            state.selectedDepartment = selectedDepartment;
+            //state.users = [...state.usersBackup];
+            let sortedUsers = state.users.filter(function (el) {
+                return el.params.department.value === selectedDepartment;
+            });
+
+            return state.users = sortedUsers;
+        },
+
+        ADD_USER_IN_USERS(state) {
+            state.usersBackup = [...state.users]
+        },
+
+        FILTERED_USERS(state, {type, value}) {
+            // eslint-disable-next-line no-debugger
+            debugger
+
+            if (type === "gender") state.selectedGender = value
+            else if (type === "work_position") state.selectedWorkPosition = value
+            else if (type === "department") state.selectedDepartment = value
+            else if (type === "team") state.selectedTeam = value
+            else if (type === "company") state.selectedCompany = value
+            else if (type === "location") state.selectedLocation = value
+            else if (type === "employment") state.selectedEmployment = value
+
+            state.users = [...state.usersBackup]
+            state.users = state.users
+                .filter(el => {
+                    return state.selectedGender === "" ||  el.params.gender.value === state.selectedGender;
+                })
+                .filter(el => {
+                    return state.selectedWorkPosition === "" || el.params.work_position.value === state.selectedWorkPosition;
+                })
+                .filter(el => {
+                    return state.selectedDepartment === "" || el.params.department.value === state.selectedDepartment;
+                })
+                .filter(el => {
+                    return state.selectedCompany === "" || el.params.company_name.value === state.selectedCompany;
+                })
+                .filter(el => {
+                    return state.selectedLocation === "" || el.params.company_locate.value === state.selectedLocation;
+                })
+                .filter(el => {
+                    return state.selectedTeam === "" || el.params.team_name.value === state.selectedTeam;
+                })
+                .filter(el => {
+                    return state.selectedEmployment === "" || el.params.employment.value === state.selectedEmployment;
+                })
+        },
+
+        filteredProducts: function() {
+            return this.products
+                // Фильтруем по категории
+                .filter(product => {
+                    return this.selectCategory == 0 || product.category_id == this.selectCategory;
+                })
+
+                // Фильтруем по брендам
+                .filter(product => {
+                    return this.selectBrand == 0 || product.brand == this.selectBrand;
+                })
+
+                // Фильтруем по полю поиска
+                .filter(product => {
+                    return this.inputSearch == '' || product.good.toLowerCase().indexOf(this.inputSearch.toLowerCase()) !== -1;
+                });
+        },
+        CLEAR_FILTERS(state) {
+            state.users = [...state.usersBackup];
+            state.selectedGender = "";
+            state.selectedWorkPosition = "";
+            state.selectedDepartment = "";
+            state.selectedTeam = "";
+            state.selectedCompany = "";
+            state.selectedLocation = "";
+            state.selectedEmployment = "";
+            return state.users
+        }
+
+
     },
     getters: {
         USERS(state){
@@ -186,6 +303,8 @@ export const usersModule = {
             let employment = state.filters.filter(item => item.filter_name.toLowerCase() === "вид занятости")
             return employment.map(el => el.params).pop()
         },
+
+
 
 
     },

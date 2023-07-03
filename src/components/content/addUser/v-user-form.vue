@@ -10,47 +10,48 @@
       />
     </div>
 
+
     <div class="text_element">
       <p>Ваш пол</p>
-      <my-select :model-value="this.selectedGender"
+      <v-my-select-add-user :model-value="this.selectedGender"
                  @update:model-value="SET_SELECTED_GENDER"
                  :options="GENDERS"/>
     </div>
 
     <div class="text_element">
       <p>Должность</p>
-      <my-select :model-value="this.selectedWorkPosition"
+      <v-my-select-add-user :model-value="this.selectedWorkPosition"
                  @update:model-value="SET_SELECTED_WORK_POSITION"
                  :options="WORK_POSITIONS"/>
     </div>
 
     <div class="text_element">
       <p>Отдел</p>
-      <my-select :model-value="this.selectedDepartment"
+      <v-my-select-add-user :model-value="this.selectedDepartment"
                  @update:model-value="SET_SELECTED_DEPARTMENTS"
                  :options="DEPARTMENTS"/>
     </div>
     <div class="text_element">
       <p>Команда</p>
-      <my-select :model-value="this.selectedTeam"
+      <v-my-select-add-user :model-value="this.selectedTeam"
                  @update:model-value="SET_SELECTED_TEAM"
                  :options="TEAMS"/>
     </div>
     <div class="text_element">
       <p>Компания</p>
-      <my-select :model-value="this.selectedCompany"
+      <v-my-select-add-user :model-value="this.selectedCompany"
                  @update:model-value="SET_SELECTED_COMPANY"
                  :options="COMPANIES"/>
     </div>
     <div class="text_element">
       <p>Город</p>
-      <my-select :model-value="this.selectedLocation"
+      <v-my-select-add-user :model-value="this.selectedLocation"
                  @update:model-value="SET_SELECTED_LOCATION"
                  :options="LOCATIONS"/>
     </div>
     <div class="text_element">
       <p>Вид занятости</p>
-      <my-select :model-value="this.selectedEmployment"
+      <v-my-select-add-user :model-value="this.selectedEmployment"
                  @update:model-value="SET_SELECTED_EMPLOYMENT"
                  :options="EMPLOYMENT"/>
     </div>
@@ -67,12 +68,12 @@
 
 import MyButton from "@/components/UI/MyButton.vue";
 import MyInput from "@/components/UI/MyInput.vue";
-import MySelect from "@/components/UI/MySelect.vue";
 import {mapGetters, mapMutations, mapState} from "vuex";
+import VMySelectAddUser from "@/components/UI/MySelectAddUser.vue";
 
 export default {
   name: 'v-user-form',
-  components: {MySelect, MyInput, MyButton},
+  components: {VMySelectAddUser, MyInput, MyButton},
   data() {
     return {
       user: {
