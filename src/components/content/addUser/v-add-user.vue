@@ -2,10 +2,11 @@
   <div class="v-add-user">
     <div class="v-add-user__block">
       <button class="v-add-user__btn" @click="showDialog">Добавить пользователя</button>
-      <v-add-user-dialog v-model:show="dialogVisible">
-        <v-user-form @create="createUser"/>
-      </v-add-user-dialog>
+      <v-pagination />
     </div>
+    <v-add-user-dialog v-model:show="dialogVisible">
+      <v-user-form @create="createUser"/>
+    </v-add-user-dialog>
   </div>
 </template>
 
@@ -13,10 +14,11 @@
 import VAddUserDialog from "@/components/content/addUser/v-add-user-dialog.vue";
 import VUserForm from "@/components/content/addUser/v-user-form.vue";
 import {mapMutations, mapState} from "vuex";
+import VPagination from "@/components/content/addUser/v-pagination.vue";
 
 export default {
   name: 'v-add-user',
-  components: {VUserForm, VAddUserDialog},
+  components: {VPagination, VUserForm, VAddUserDialog},
   data() {
     return {
       dialogVisible: false,
@@ -25,25 +27,26 @@ export default {
   methods: {
     showDialog() {
       this.dialogVisible = true;
-      this.CLEAR_SELECTED_PARAMS();
+      this.CLEAR_FILTERS();
     },
     createUser(user) {
       this.users.push(user);
+      this.usersBackup.push(user);
       this.dialogVisible = false;
-      this.ADD_USER_IN_USERS();//тут что-то не то, пользователь участвует в фильтрации но тупо
     },
     ...mapMutations({
       CLEAR_SELECTED_PARAMS: "users/CLEAR_SELECTED_PARAMS",
-      ADD_USER_IN_USERS: "users/ADD_USER_IN_USERS"
+      ADD_USER_IN_USERS: "users/ADD_USER_IN_USERS",
+      CLEAR_FILTERS: "users/CLEAR_FILTERS",
     })
   },
   computed: {
     ...mapState({
       users: state => state.users.users,
       usersBackup: state => state.users.usersBackup,
-      testUsers: state => state.users.testUsers
     })
-  }
+  },
+
 }
 </script>
 
@@ -57,8 +60,11 @@ export default {
   &__block {
     width: 95%;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
   &__btn {
+    cursor: pointer;
     width: 250px;
     height: 55px;
     border: 1px solid transparent;
@@ -83,5 +89,7 @@ export default {
     opacity: 80%;
   }
 }
+
+
 
 </style>

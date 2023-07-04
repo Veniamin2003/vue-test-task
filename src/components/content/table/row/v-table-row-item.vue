@@ -26,4 +26,12 @@ export default {
   padding: 8px 16px;
   text-align: left;
 }
+
+@media screen and (max-width: 1200px) {
+  .v-table-row-item {
+    flex-basis: max-content;
+    min-width: 150px;
+    padding-right: 10px;
+  }
+}
 </style>

@@ -51,10 +51,14 @@ export default {
   position: absolute;
 }
 .v-my-input__input:focus{
-
   border: 1px solid rgba(3, 158, 247, 0.3);
   background: rgba(158, 218, 252, 0.18);
+}
 
+@media screen and (max-width: 500px) {
+  .v-my-input {
+    width: 90%;
+  }
 }
 
 

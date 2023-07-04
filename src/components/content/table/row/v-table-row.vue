@@ -59,6 +59,7 @@ export default {
   justify-content: space-around;
   align-items: center;
   border-bottom: 1px solid rgba(187, 186, 186, 0.47);
+  border-bottom-style: dashed;
   &__employer {
     display: flex;
     align-items: center;
@@ -66,6 +67,19 @@ export default {
     flex-basis: 25%;
     padding: 8px 32px 8px 0;
     text-align: left;
+    min-width: 200px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .v-table-row {
+    margin: 0 2.5%;
+    width: auto;
+
+    justify-content: space-between;
+    &__employer {
+      min-width: 260px;
+    }
   }
 }
 

@@ -1,9 +1,5 @@
 <template>
   <form @submit.prevent>
-    <div class="block_name">
-      <h4>Фильтр</h4>
-    </div>
-
     <div class="text_element">
       <p>Ваш пол</p>
       <my-select :model-value="this.selectedGender"
@@ -67,10 +63,12 @@
 
 import MySelect from "@/components/UI/MySelect.vue";
 import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
+import toggleMixin from "@/components/mixins/toggleMixin";
 
 export default {
   name: 'v-filter-form',
   components: {MySelect},
+  mixins: [toggleMixin],
   data() {
     return {
       genderParam: "Пол"
@@ -78,32 +76,15 @@ export default {
   },
   methods: {
     ...mapMutations({
-      SET_SELECTED_GENDER: "users/SET_SELECTED_GENDER",
-      SET_SELECTED_WORK_POSITION: "users/SET_SELECTED_WORK_POSITION",
-      SET_SELECTED_DEPARTMENTS: "users/SET_SELECTED_DEPARTMENTS",
-      SET_SELECTED_TEAM: "users/SET_SELECTED_TEAM",
-      SET_SELECTED_COMPANY: "users/SET_SELECTED_COMPANY",
-      SET_SELECTED_LOCATION: "users/SET_SELECTED_LOCATION",
-      SET_SELECTED_EMPLOYMENT: "users/SET_SELECTED_EMPLOYMENT",
-      CLEAR_SELECTED_PARAMS: "users/CLEAR_SELECTED_PARAMS",
-
-
-      SORT_GENDERS: "users/SORT_GENDERS",
-      SORT_WORK_POSITION: "users/SORT_WORK_POSITION",
-      CLEAR_FILTERS: "users/CLEAR_FILTERS",
-      SORT_DEPARTMENT: "users/SORT_DEPARTMENT",
       FILTERED_USERS: "users/FILTERED_USERS",
-
+      CLEAR_FILTERS: "users/CLEAR_FILTERS",
+      INCREMENT_COUNT_ACTIVE_FILTERS: "users/INCREMENT_COUNT_ACTIVE_FILTERS"
     }),
     ...mapActions({
-      TEST: "users/TEST"
-
     }),
-    sortedGenders() {
-
-    },
     filterUsers(value) {
       this.FILTERED_USERS(value);
+      this.INCREMENT_COUNT_ACTIVE_FILTERS();
     }
   },
   computed: {
@@ -156,16 +137,6 @@ form {
   color: #545353;
   background: rgba(241, 65, 108, 0.15);
   border: 1px solid rgb(241, 65, 108, 0.45);
-}
-
-
-.block_name {
-  width: 100%;
-  text-align: left;
-}
-
-.block_name h4 {
-  font-size: 18px;
 }
 
 .text_element {

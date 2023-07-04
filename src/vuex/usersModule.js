@@ -9,6 +9,8 @@ export const usersModule = {
         isPostsLoading: false,
         isData: true,
 
+        countActiveFilters: 0,
+
         selectedGender: '',
         selectedWorkPosition: '',
         selectedDepartment: '',
@@ -19,14 +21,10 @@ export const usersModule = {
 
         searchQuery: '',
         page: 1,
-        limit: 10,
+        limit: 6,
         totalPage: 0,
         count_mens: 0,
         count_women: 0,
-        /*sortOptions: [
-            {value: 'title', name: 'По названию'},
-            {value: 'body', name: 'По описанию'},
-        ]*/
     },
     actions: {
         async GET_USERS({state, commit}) {
@@ -44,40 +42,26 @@ export const usersModule = {
                 alert("Ошибка");
             } finally {
                 commit("SET_LOADING", false);
-                commit("WWW");
+                commit("COPY_IN_USERS_BACKUP");
             }
         },
-        async GET_FILTERS({state, commit}) {
+        async GET_FILTERS({commit}) {
             try {
-                const response = await axios.get("https://my-json-server.typicode.com/Veniamin2003/vue-test-task-server/filters", {
-                    params: {
-                        _page: state.page,
-                        _limit: state.limit,
-                    }
-                });
-                commit('SET_TOTAL_PAGES', Math.ceil(response.headers['x-total-count'] / state.limit));
+                const response = await axios.get("https://my-json-server.typicode.com/Veniamin2003/vue-test-task-server/filters");
+                //commit('SET_TOTAL_PAGES', Math.ceil(response.headers['x-total-count'] / state.limit));
                 commit('SET_FILTERS', response.data);
                 commit("SET_IS_DATA", true);
 
             } catch (e) {
                 alert("Ошибка");
             } finally {
-                commit("SET_LOADING", false);
+                //commit("SET_LOADING", false);
                 commit("SET_IS_DATA", true);
             }
         },
-        TEST({commit}, value, genderParam  ) {
-            // eslint-disable-next-line no-debugger
-            debugger
-
-            console.log(genderParam)
-            commit("SET_SELECTED_GENDER", value);
-            commit("FILTERED_USERS");
-        }
-
     },
     mutations: {
-        WWW(state) {
+        COPY_IN_USERS_BACKUP(state) {
             state.usersBackup = [...state.users];
         },
         SET_USERS(state, users) {
@@ -94,6 +78,9 @@ export const usersModule = {
         },
         SET_TOTAL_PAGES(state, totalPages) {
             state.totalPage = totalPages;
+        },
+        SET_CURRENT_PAGE(state, currentPage) {
+            state.page = currentPage;
         },
 
         SET_SELECTED_GENDER(state, selectedGender) {
@@ -131,44 +118,11 @@ export const usersModule = {
             state.searchQuery = searchQuery;
         },
 
-        SORT_GENDERS(state, selectedGender) {
-            state.selectedGender = selectedGender;
-
-            //state.users = [...state.usersBackup];
-
-            let sortedUsers = state.users.filter(function (el) {
-                return el.params.gender.value === selectedGender;
-            });
-
-            return state.users = sortedUsers;
-        },
-        SORT_WORK_POSITION(state, selectedWorkPosition) {
-            state.selectedWorkPosition = selectedWorkPosition;
-            //state.users = [...state.usersBackup];
-            let sortedUsers = state.users.filter(function (el) {
-                return el.params.work_position.value === selectedWorkPosition;
-            });
-
-            return state.users = sortedUsers;
-        },
-        SORT_DEPARTMENT(state, selectedDepartment) {
-            state.selectedDepartment = selectedDepartment;
-            //state.users = [...state.usersBackup];
-            let sortedUsers = state.users.filter(function (el) {
-                return el.params.department.value === selectedDepartment;
-            });
-
-            return state.users = sortedUsers;
-        },
-
         ADD_USER_IN_USERS(state) {
             state.usersBackup = [...state.users]
         },
 
         FILTERED_USERS(state, {type, value}) {
-            // eslint-disable-next-line no-debugger
-            debugger
-
             if (type === "gender") state.selectedGender = value
             else if (type === "work_position") state.selectedWorkPosition = value
             else if (type === "department") state.selectedDepartment = value
@@ -202,23 +156,6 @@ export const usersModule = {
                 })
         },
 
-        filteredProducts: function() {
-            return this.products
-                // Фильтруем по категории
-                .filter(product => {
-                    return this.selectCategory == 0 || product.category_id == this.selectCategory;
-                })
-
-                // Фильтруем по брендам
-                .filter(product => {
-                    return this.selectBrand == 0 || product.brand == this.selectBrand;
-                })
-
-                // Фильтруем по полю поиска
-                .filter(product => {
-                    return this.inputSearch == '' || product.good.toLowerCase().indexOf(this.inputSearch.toLowerCase()) !== -1;
-                });
-        },
         CLEAR_FILTERS(state) {
             state.users = [...state.usersBackup];
             state.selectedGender = "";
@@ -228,10 +165,43 @@ export const usersModule = {
             state.selectedCompany = "";
             state.selectedLocation = "";
             state.selectedEmployment = "";
+            state.countActiveFilters = 0;
             return state.users
+        },
+
+        INCREMENT_COUNT_ACTIVE_FILTERS(state) {
+            let gender = 0;
+            let workPosition = 0;
+            let department = 0;
+            let team = 0;
+            let company = 0;
+            let location = 0;
+            let employment = 0;
+
+            if(state.selectedGender !== "") {
+                gender = 1;
+            }
+            if(state.selectedWorkPosition !== "") {
+                workPosition = 1;
+            }
+            if(state.selectedDepartment !== "") {
+                department = 1;
+            }
+            if(state.selectedTeam !== "") {
+                team = 1;
+            }
+            if(state.selectedCompany !== "") {
+                company = 1;
+            }
+            if(state.selectedLocation !== "") {
+                location = 1;
+            }
+            if(state.selectedEmployment !== "") {
+                employment = 1;
+            }
+
+            state.countActiveFilters = gender + workPosition + department + team + company + location + employment;
         }
-
-
     },
     getters: {
         USERS(state){
@@ -239,9 +209,6 @@ export const usersModule = {
         },
         IS_DATA(state) {
           return state.isData
-        },
-        FILTERS(state){
-            return state.filters;
         },
         POST_LOADING(state){
             return state.isPostsLoading;
@@ -275,6 +242,10 @@ export const usersModule = {
             return countNoGender.length
         },
 
+        COUNT_ACTIVE_FILTERS(state) {
+          return state.countActiveFilters
+        },
+
         GENDERS(state) {
             let genders = state.filters.filter(item => item.filter_name.toLowerCase() === "пол")
             return genders.map(el => el.params).pop()
@@ -303,10 +274,6 @@ export const usersModule = {
             let employment = state.filters.filter(item => item.filter_name.toLowerCase() === "вид занятости")
             return employment.map(el => el.params).pop()
         },
-
-
-
-
     },
     namespaced: true
 }

@@ -1,6 +1,8 @@
 <template>
   <form @submit.prevent>
-    <h4>Создание пользователя</h4>
+    <div class="header_text">
+      <h4>Создание пользователя</h4>
+    </div>
     <div class="text_element">
       <p>Как вас зовут?</p>
       <my-input
@@ -179,8 +181,6 @@ export default {
       else{
         alert("Не все поля заполнены")
       }
-
-
     },
 
     isFieldsFill() {
@@ -236,6 +236,10 @@ form {
   display: flex;
   flex-direction: column;
 }
+.header_text h4 {
+  font-size: 20px;
+  margin: 0 0 20px;
+}
 
 .text_element {
   margin-top: 10px;
@@ -246,7 +250,4 @@ form {
   margin: 0;
 }
 
-.btn:hover {
-  background-color: rgba(77, 131, 131, 0.73);
-}
 </style>

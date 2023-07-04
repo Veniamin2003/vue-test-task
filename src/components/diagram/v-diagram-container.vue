@@ -11,6 +11,7 @@
             :count_woman="COUNT_WOMEN"
             :count_no_gender="COUNT_NO_GENDER"
         />
+      <div v-else><img src="@/assets/Loader/diagram.svg" alt="loader"/></div>
       <v-diagram-params />
     </div>
 
@@ -95,6 +96,11 @@ export default {
     height: auto;
     background: #ffffff;
     border-radius: 30px;
+  }
+}
+@media screen and (max-width: 1570px) {
+  .v-diagram-container {
+    width: 95%;
   }
 }
 </style>

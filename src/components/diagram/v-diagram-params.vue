@@ -97,4 +97,40 @@ export default {
     }
   }
 }
+@media screen and (max-width: 1100px) {
+  .v-diagram-params {
+    &__params_content {
+      width: 75%;
+    }
+  }
+}
+@media screen and (max-width: 800px) {
+  .v-diagram-params {
+    &__params_content {
+      width: 95%;
+    }
+  }
+}
+@media screen and (max-width: 600px) {
+  .v-diagram-params {
+    &__params_content {
+      width: 75%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    &__param {
+      margin: 10px 0 0 0;
+      width: 95%;
+    }
+  }
+}
+@media screen and (max-width: 500px) {
+  .v-diagram-params {
+    &__params_content {
+      width: 95%;
+    }
+  }
+}
 </style>

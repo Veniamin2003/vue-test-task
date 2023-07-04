@@ -4,12 +4,24 @@
           <v-my-input :model-value="this.searchQuery"
                       @update:model-value="SET_SEARCH_QUERY"/>
 
+
         <button @click="showDialog"
-                class="v-search-container__btn">
+                class="v-search-container__btn"
+                v-if="COUNT_ACTIVE_FILTERS === 0"
+        >
           <span class="material-symbols-outlined">
-          filter_alt
+            filter_alt
           </span>
           Фильтр
+        </button>
+
+        <button @click="showDialog"
+                class="v-search-container__btn_filter"
+                v-else>
+          <span class="material-symbols-outlined">
+            filter_alt
+          </span>
+          Фильтр ({{COUNT_ACTIVE_FILTERS}})
         </button>
 
         <v-filter-container v-model:show="dialogVisible">
@@ -21,7 +33,7 @@
 
 <script>
 import VMyInput from "@/components/content/search/v-my-input.vue";
-import {mapMutations, mapState} from "vuex";
+import {mapGetters, mapMutations, mapState} from "vuex";
 import VFilterContainer from "@/components/filters/v-filter-container.vue";
 import VFilterForm from "@/components/filters/v-filter-form.vue";
 
@@ -46,7 +58,11 @@ export default {
     ...mapState({
       users: state => state.users.users,
       searchQuery: state => state.users.searchQuery,
+      countActiveFilters: state => state.countActiveFilters
     }),
+    ...mapGetters({
+      COUNT_ACTIVE_FILTERS: "users/COUNT_ACTIVE_FILTERS"
+    })
 
   }
 
@@ -68,8 +84,9 @@ export default {
     justify-content: space-between;
   }
 
-  &__btn {
-    width: 150px;
+  &__btn, &__btn_filter {
+    cursor: pointer;
+    width: 175px;
     height: 55px;
     border: 1px solid transparent;
     border-radius: 7px;
@@ -82,9 +99,9 @@ export default {
     transition: 300ms;
     background: rgb(241,250,255);
   }
-
-  &__btn:hover {
-    background: transparent;
+  &__btn:hover, &__btn_filter:hover{
+    color: white;
+    background: rgb(3,158,247);
     border: 1px solid rgba(3, 158, 247, 0.45);
   }
 
@@ -92,7 +109,19 @@ export default {
     font-weight: 600;
     margin-right: 5px;
     font-size: 18px;
-    opacity: 80%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .v-search-container {
+    &__block {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    &__btn, &__btn_filter {
+      margin-top: 10px;
+    }
   }
 }
 </style>

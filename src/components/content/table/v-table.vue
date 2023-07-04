@@ -56,16 +56,21 @@ export default {
 </script>
 
 <style lang="scss">
+
 .v-table {
   width: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
   margin: 0 auto;
   &__body {
     display: flex;
     flex-direction: column;
     align-items: center;
-
   }
 }
+
+
+
 .post-list-item {
   display: inline-block;
   margin-right: 10px;
@@ -84,5 +89,14 @@ export default {
 
 .post-list-move {
   transition: transform 0.4s ease;
+}
+
+@media screen and (max-width: 1300px) {
+  .v-table {
+    &__body {
+      flex-wrap: wrap;
+    }
+
+  }
 }
 </style>

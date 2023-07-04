@@ -1,6 +1,14 @@
 <template>
   <div class="v-filter-container" v-if="show" @click="hideDialog">
     <div @click.stop class="v-filter-container__content">
+      <div class="block_name">
+        <h4>Фильтр</h4>
+        <span class="material-symbols-outlined"
+              @click="hideDialog"
+        >
+        close
+      </span>
+      </div>
       <slot></slot>
     </div>
   </div>
@@ -33,6 +41,22 @@ export default {
     background: white;
     padding: 10px 30px;
   }
+}
+
+.block_name {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.block_name span {
+  cursor: pointer;
+  font-size: 28px;
+  color: #818080;
+}
+
+.block_name h4 {
+  font-size: 18px;
 }
 
 </style>

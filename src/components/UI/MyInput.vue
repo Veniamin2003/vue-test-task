@@ -18,11 +18,14 @@ export default {
 
 <style scoped>
 .input {
-  padding: 0;
   width: 450px;
-  border: 1px solid teal;
-  height: 38px;
+  border: 1px solid rgba(94, 91, 91, 0.67);
+  height: 46px;
   margin-top: 5px;
+  padding-left: 20px;
+  font-size: 14px;
+  color: rgba(94, 91, 91, 0.67);
+  border-radius: 7px;
 }
 
 </style>
