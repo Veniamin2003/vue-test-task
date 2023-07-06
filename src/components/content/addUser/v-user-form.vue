@@ -1,8 +1,8 @@
 <template>
   <form @submit.prevent>
-    <div class="header_text">
+<!--    <div class="header_text">
       <h4>Создание пользователя</h4>
-    </div>
+    </div>-->
     <div class="text_element">
       <p>Как вас зовут?</p>
       <my-input
@@ -233,6 +233,8 @@ export default {
 
 <style scoped>
 form {
+  margin-bottom: 10px;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
 }
@@ -248,6 +250,14 @@ form {
 }
 .text_element p {
   margin: 0;
+}
+
+@media screen and (max-width: 900px) {
+  form {
+    margin-bottom: 20px;
+    margin-top: 10px;
+    padding-bottom: 20px;
+  }
 }
 
 </style>

@@ -44,4 +44,9 @@ export default {
     width: 95%;
   }
 }
+@media screen and (max-width: 567px) {
+  .v-users-table {
+    padding: 20px 0 70px;
+  }
+}
 </style>

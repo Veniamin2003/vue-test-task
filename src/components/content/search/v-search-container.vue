@@ -85,6 +85,7 @@ export default {
   }
 
   &__btn, &__btn_filter {
+    z-index: 1;
     cursor: pointer;
     width: 175px;
     height: 55px;
@@ -99,11 +100,14 @@ export default {
     transition: 300ms;
     background: rgb(241,250,255);
   }
-  &__btn:hover, &__btn_filter:hover{
-    color: white;
-    background: rgb(3,158,247);
-    border: 1px solid rgba(3, 158, 247, 0.45);
+  @media (hover: hover) {
+    &__btn:hover, &__btn_filter:hover{
+      color: white;
+      background: rgb(3,158,247);
+      border: 1px solid rgba(3, 158, 247, 0.45);
+    }
   }
+
 
   &__btn span {
     font-weight: 600;
@@ -122,6 +126,7 @@ export default {
     &__btn, &__btn_filter {
       margin-top: 10px;
     }
+
   }
 }
 </style>

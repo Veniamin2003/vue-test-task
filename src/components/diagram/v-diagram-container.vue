@@ -11,6 +11,8 @@
             :count_woman="COUNT_WOMEN"
             :count_no_gender="COUNT_NO_GENDER"
         />
+
+
       <div v-else><img src="@/assets/Loader/diagram.svg" alt="loader"/></div>
       <v-diagram-params />
     </div>

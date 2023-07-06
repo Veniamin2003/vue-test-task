@@ -20,6 +20,7 @@ export const usersModule = {
         selectedEmployment: '',
 
         searchQuery: '',
+        searchedPosts: '',
         page: 1,
         limit: 6,
         totalPage: 0,
@@ -117,6 +118,10 @@ export const usersModule = {
         SET_SEARCH_QUERY(state, searchQuery) {
             state.searchQuery = searchQuery;
         },
+        SET_SEARCHED_POSTS(state, searchedPosts) {
+            state.searchedPosts = searchedPosts;
+        },
+
 
         ADD_USER_IN_USERS(state) {
             state.usersBackup = [...state.users]
@@ -274,6 +279,9 @@ export const usersModule = {
             let employment = state.filters.filter(item => item.filter_name.toLowerCase() === "вид занятости")
             return employment.map(el => el.params).pop()
         },
+        SEARCHED_POSTS(state) {
+            return state.users.filter(user => user.name.toLowerCase().includes(state.searchQuery.toLowerCase()))
+        }
     },
     namespaced: true
 }

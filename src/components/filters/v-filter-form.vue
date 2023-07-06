@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent>
     <div class="text_element">
-      <p>Ваш пол</p>
+      <p>Пол</p>
       <my-select :model-value="this.selectedGender"
                  @update:model-value="filterUsers"
                  :options="GENDERS"
@@ -113,8 +113,10 @@ export default {
 
 <style scoped>
 form {
+  z-index: 5;
   display: flex;
   flex-direction: column;
+  margin-bottom: 40px;
 }
 
 .v-filter_form__btn {
@@ -132,11 +134,12 @@ form {
   transition: 300ms;
   background: rgb(241, 65, 108);
 }
-
-.v-filter_form__btn:hover {
-  color: #545353;
-  background: rgba(241, 65, 108, 0.15);
-  border: 1px solid rgb(241, 65, 108, 0.45);
+@media (hover: hover) {
+  .v-filter_form__btn:hover {
+    color: #545353;
+    background: rgba(241, 65, 108, 0.15);
+    border: 1px solid rgb(241, 65, 108, 0.45);
+  }
 }
 
 .text_element {
@@ -152,5 +155,17 @@ form {
 
 .btn:hover {
   background-color: rgba(77, 131, 131, 0.73);
+}
+@media screen and (max-width: 1000px) {
+  form {
+    padding: 0 20px;
+
+  }
+}
+@media screen and (max-width: 576px) {
+  form {
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+  }
 }
 </style>

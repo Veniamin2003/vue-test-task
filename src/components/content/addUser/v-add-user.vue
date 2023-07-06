@@ -67,7 +67,7 @@ export default {
     cursor: pointer;
     width: 250px;
     height: 55px;
-    border: 1px solid transparent;
+    border: 1px solid rgba(187, 227, 197, 0.91);
     border-radius: 7px;
     display: flex;
     align-items: center;
@@ -77,16 +77,29 @@ export default {
     background: rgba(206, 245, 216, 0.49);
 
   }
-
-  &__btn:hover {
-    background: transparent;
-    border: 1px solid rgba(173, 171, 171, 0.39);
+  @media (hover: hover) {
+    &__btn:hover {
+      background: transparent;
+      border: 1px solid rgba(173, 171, 171, 0.39);
+    }
   }
 
   &__btn span {
     margin-right: 5px;
     font-size: 18px;
     opacity: 80%;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .v-add-user {
+    &__block {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    &__btn {
+      width: 100%;
+    }
   }
 }
 

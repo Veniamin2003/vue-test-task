@@ -53,4 +53,22 @@ option {
   padding-left: 20px;
   padding-right: 15px;
 }
+.v-my-select:focus{
+  border: 1px solid rgba(3, 158, 247, 0.68);
+}
+.v-my-select:target{
+  border: 1px solid rgba(3, 158, 247, 0.3);
+}
+.v-my-select:focus {
+  outline: 0;
+}
+
+@media screen and (max-width: 576px) {
+  option {
+    background: #f8fbfd;
+  }
+  .v-my-select {
+    background: #f8fbfd;
+  }
+}
 </style>

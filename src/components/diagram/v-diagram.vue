@@ -1,9 +1,12 @@
 <template>
   <div class="v-diagram">
-    <div class="v-diagram__canvas">
-      <!--    <img src="@/assets/images/trip_origin.svg" alt="diagram">-->
-      <Doughnut :data="getData"  />
+    <div class="v-diagram__canvas"
+         v-if="COUNT_MEN === 0 && COUNT_WOMEN === 0 && COUNT_MEN === 0 /*|| SEARCHED_POSTS.length === 0*/">
+      <p>Пользователи не найдены...</p>
+      <img src="@/assets/Loader/diagram.svg" alt="loader"/>
     </div>
+
+    <div class="v-diagram__canvas" v-else><Doughnut :data="getData"  /></div>
   </div>
 
 </template>
@@ -12,7 +15,7 @@
 
 import {ArcElement, BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip} from 'chart.js'
 import {Doughnut} from 'vue-chartjs'
-import {mapGetters} from "vuex";
+import {mapGetters, mapState} from "vuex";
 
 ChartJS.register(ArcElement);
 
@@ -50,9 +53,14 @@ export default {
   },
   computed: {
     ...mapGetters({
+      USERS: "users/USERS",
       COUNT_MEN: "users/COUNT_MEN",
       COUNT_WOMEN: "users/COUNT_WOMEN",
       COUNT_NO_GENDER: "users/COUNT_NO_GENDER",
+      SEARCHED_POSTS: "users/SEARCHED_POSTS"
+    }),
+    ...mapState({
+      count_mens: state => state.users.count_mens
     }),
     getData() {
       return {
@@ -84,6 +92,16 @@ export default {
   justify-content: center;
   &__canvas {
     width: 300px;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .v-diagram  {
+    &__canvas {
+      width: 260px;
+    }
   }
 }
 </style>

@@ -88,9 +88,11 @@ export default {
     transition: 300ms;
   }
 
-  &__btn:hover {
-    background: transparent;
-    border: 1px solid rgba(173, 171, 171, 0.39);
+  @media (hover: hover) {
+    &__btn:hover {
+      background: transparent;
+      border: 1px solid rgba(173, 171, 171, 0.39);
+    }
   }
 
   &__btn span {
@@ -104,7 +106,6 @@ export default {
   .v-export-block {
     &__header_block {
       text-align: left;
-      margin-bottom: 20px;
     }
   }
 }

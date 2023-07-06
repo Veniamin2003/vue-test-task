@@ -1,5 +1,6 @@
 <template>
-  <div class="v-table">
+  <div class="v-table"
+       v-if="SEARCHED_POSTS.length > 0">
     <v-table-header
         v-for="user in PARAMS"
         :row_data="user"
@@ -7,19 +8,25 @@
     <div class="v-table__body">
       <transition-group name="post-list">
       <v-table-row
-          v-for="user in searchedPosts"
+          v-for="user in SEARCHED_POSTS"
           :row_data="user"
           :key="user.id"
       />
       </transition-group>
     </div>
   </div>
+  <div v-else>
+    <p>
+      Пользователи не найдены...
+    </p>
+    <img src="@/assets/Loader/search.svg" alt="loader"/>
+  </div>
 </template>
 
 <script>
 import VTableRow from "@/components/content/table/row/v-table-row.vue"
 import VTableHeader from "@/components/content/table/header/v-table-header.vue";
-import {mapGetters, mapState} from "vuex";
+import {mapGetters, mapMutations, mapState} from "vuex";
 
 export default {
   name: "v-table",
@@ -37,7 +44,9 @@ export default {
     }
   },
   methods: {
-
+    ...mapMutations({
+      SET_SEARCHED_POSTS: "users/SET_SEARCHED_POSTS"
+    })
   },
   computed: {
     ...mapState({
@@ -46,11 +55,12 @@ export default {
     }),
     ...mapGetters({
       USERS: "users/USERS",
-      PARAMS: "users/PARAMS"
+      PARAMS: "users/PARAMS",
+      SEARCHED_POSTS: "users/SEARCHED_POSTS"
     }),
-    searchedPosts() {
-      return this.users.filter(user => user.name.toLowerCase().includes(this.searchQuery.toLowerCase()));
-    }
+    /*searchedPosts() {
+      //return this.users.filter(user => user.name.toLowerCase().includes(this.searchQuery.toLowerCase()));
+    }*/
   }
 }
 </script>

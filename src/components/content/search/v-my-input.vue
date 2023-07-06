@@ -57,7 +57,7 @@ export default {
 
 @media screen and (max-width: 500px) {
   .v-my-input {
-    width: 90%;
+    width: max-content;
   }
 }
 

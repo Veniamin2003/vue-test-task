@@ -27,5 +27,16 @@ export default {
   color: rgba(94, 91, 91, 0.67);
   border-radius: 7px;
 }
-
+.input:focus{
+  border: 1px solid rgba(3, 158, 247, 0.68);
+}
+.input:focus {
+  outline: 0;
+}
+@media screen and (max-width: 576px) {
+  .input {
+    width: 94%;
+    height: 41px;
+  }
+}
 </style>

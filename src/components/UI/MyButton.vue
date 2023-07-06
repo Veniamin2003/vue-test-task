@@ -26,9 +26,17 @@ export default {
   background: rgb(241,250,255);
 }
 
-.btn:hover {
-  background: transparent;
-  border: 1px solid rgba(3, 158, 247, 0.45);
+@media (hover: hover) {
+  .btn:hover {
+    background: transparent;
+    border: 1px solid rgba(3, 158, 247, 0.45);
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .btn {
+    border: 1px solid rgba(3, 158, 247, 0.38);
+  }
 }
 
 </style>

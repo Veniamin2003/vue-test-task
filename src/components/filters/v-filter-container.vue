@@ -24,7 +24,7 @@ export default {
 
 <style lang="scss" scoped>
 .v-filter-container {
-  z-index: 2;
+  z-index: 4;
   top: 0;
   bottom: 0;
   right: 0;
@@ -40,6 +40,9 @@ export default {
     width: 25%;
     background: white;
     padding: 10px 30px;
+
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }
 
@@ -57,6 +60,34 @@ export default {
 
 .block_name h4 {
   font-size: 18px;
+}
+@media screen and (max-width: 1000px) {
+  .v-filter-container {
+    &__content {
+      width: 40%;
+      padding: 0;
+    }
+    .block_name h4 {
+      padding-left: 20px;
+    }
+    .block_name span {
+      padding-right: 20px;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .v-filter-container {
+    &__content {
+      width: 55%;
+    }
+  }
+}
+@media screen and (max-width: 500px) {
+  .v-filter-container {
+    &__content {
+      width: 100%;
+    }
+  }
 }
 
 </style>
